@@ -1,0 +1,27 @@
+{
+  "name": "moodlesubmissionfetcher",
+  "version": "1.0.0",
+  "description": "Fetches student submissions from Moodle and makes them available as files.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HerrMotz/oop-ss22-tests.git"
+  },
+  "keywords": [
+    "oop",
+    "jena"
+  ],
+  "author": "Daniel Motz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HerrMotz/oop-ss22-tests/issues"
+  },
+  "homepage": "https://github.com/HerrMotz/oop-ss22-tests#readme",
+  "dependencies": {
+    "puppeteer": "^13.7.0"
+  }
+}
