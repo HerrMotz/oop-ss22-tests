@@ -3,14 +3,13 @@ package ue1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import static ue1.Submission3.prost;
+import static ue1.Submission1_3.prost;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-public class Test3 {
+public class Test1_3 {
 
     private int prostDiscreteFormula(int people) {
         return Math.floorDiv(people * (people-1), 2);

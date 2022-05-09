@@ -3,12 +3,12 @@ package ue1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import static ue1.Submission2.fibonacci;
+import static ue1.Submission1_2.fibonacci;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class Test2 {
+public class Test1_2 {
 
     @BeforeAll
     static void init() {}
