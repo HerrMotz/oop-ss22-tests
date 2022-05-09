@@ -16,9 +16,17 @@ public class Test1_3 {
     }
 
     @Test
-    void prostForZeroOrOneOrNegativePerson() {
+    void prostForOnePerson() {
         assertEquals(0, prost(1));
+    }
+
+    @Test
+    void prostForZeroPerson() {
         assertEquals(0, prost(0));
+    }
+
+    @Test
+    void prostForNegativePerson() {
         assertEquals(0, prost(-1));
     }
 
