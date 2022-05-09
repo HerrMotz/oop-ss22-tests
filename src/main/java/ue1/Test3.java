@@ -3,7 +3,6 @@ package ue1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import static ue1.Submission2.fibonacci;
 import static ue1.Submission3.prost;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -13,11 +12,22 @@ import java.util.Random;
 
 public class Test3 {
 
+    private int prostDiscreteFormula(int people) {
+        return Math.floorDiv(people * (people-1), 2);
+    }
+
     @Test
     void prostForZeroOrOneOrNegativePerson() {
         assertEquals(0, prost(1));
         assertEquals(0, prost(0));
         assertEquals(0, prost(-1));
+    }
+
+    @Test
+    void prostWithSimpleNumbers() {
+        assertEquals(prostDiscreteFormula(2), prost(2));
+        assertEquals(prostDiscreteFormula(3), prost(3));
+        assertEquals(prostDiscreteFormula(5), prost(5));
     }
 
     @Test
