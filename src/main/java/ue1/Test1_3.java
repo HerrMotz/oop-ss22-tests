@@ -9,6 +9,20 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+/**
+ * Die Funktion prost soll:
+ *  + einen Parameter "n" vom Typ int übernehmen
+ *  + den Rückgabetyp int haben
+ *  + rekursiv programmiert sein (d.h. kein for oder while)
+ *  + die Anzahl Anstöße auf einer Party berechnen
+ *
+ *  Nicht explizit genannt:
+ *  + soll terminieren für alle n ∈ ℤ (also auch negative n), genauer:
+ *   + soll für n=0 genau 0 ausgeben (denn niemand kann mit niemandem anstoßen)
+ *   + soll für n=1 auch 0 ausgeben (denn eine Person kann mit einem Glas nicht
+ *         mit sich selbst anstoßen)
+ *   + soll für n<0 auch 0 ausgeben
+ */
 public class Test1_3 {
 
     private int prostDiscreteFormula(int people) {
