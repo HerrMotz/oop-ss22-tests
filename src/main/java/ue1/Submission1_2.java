@@ -1,7 +1,10 @@
 package ue1;
 
 public class Submission1_2 {
-    static int fibonacci(int n) {
+    static int studentFibonacci(int n) {
+        if (n < 0) {
+            System.exit(-1);
+        }
         if (n == 0) {
             return n;
         }
