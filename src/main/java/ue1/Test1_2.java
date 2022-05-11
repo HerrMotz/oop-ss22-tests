@@ -27,9 +27,45 @@ public class Test1_2 {
     /**
      * Wenn der Benutzer eine negative Zahl eingibt,
      * soll das Programm beendet werden.
+     *
+     * Dieser Test prüft, ob irgendeine Rückgabe kommt.
+     * Er schlägt fehl, wenn eine Endlosrekursion auftritt.
      */
     @Test
-    void exitsForNegativeNumbers() {
+    void terminatesWithZeroOrInputForNegativeNumbers() {
+        Random random = new Random();
+
+        int boundary = 1000;
+
+        int randomNegativeInteger = -1 * random.nextInt(boundary);
+
+        int input = -1;
+        int f = studentFibonacci(input);
+        /*
+         * Es ist akzeptabel 0 zurückzugeben
+         * oder auch die Eingabe selbst.
+         */
+        if (f == 0) {
+            return;
+        } else {
+            assertEquals(input, f);
+        }
+
+        f = studentFibonacci(randomNegativeInteger);
+        if (f == 0) {
+            return;
+        } else {
+            assertEquals(randomNegativeInteger, f);
+        }
+    }
+
+    /**
+     * Wenn der Benutzer eine negative Zahl eingibt,
+     * soll das Programm beendet werden.
+     * Dieser Test überprüft, ob System.exit aufgerufen wird.
+     */
+    @Test
+    void systemExitForNegativeNumbers() {
         Random random = new Random();
 
         int boundary = 1000;
