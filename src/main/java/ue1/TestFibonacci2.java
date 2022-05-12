@@ -3,7 +3,7 @@ package ue1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import static ue1.Submission1_3.prost;
+import static ue1.SubmissionProst3.prost;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ import java.util.Random;
  *         mit sich selbst anstoßen)
  *   + soll für n<0 auch 0 ausgeben
  */
-public class Test1_3 {
+public class TestFibonacci2 {
 
     private int prostDiscreteFormula(int people) {
         return Math.floorDiv(people * (people-1), 2);

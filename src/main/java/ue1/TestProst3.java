@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.*;
 
-import static ue1.Submission1_2.studentFibonacci;
+import static ue1.SubmissionFibonacci2.studentFibonacci;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import java.util.Random;
  *  + für Eingabe n das n-te Fibonacci-Glied ausgeben (TEST)
  *  + beenden, wenn der Benutzer eine negative Zahl eingibt (TEST)
  */
-public class Test1_2 {
+public class TestProst3 {
 
     @BeforeAll
     static void init() {}
