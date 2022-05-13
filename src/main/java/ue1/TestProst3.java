@@ -3,129 +3,76 @@ package ue1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import static com.github.stefanbirkner.systemlambda.SystemLambda.*;
+import static ue1.SubmissionProst3.prost;
 
-import static ue1.SubmissionFibonacci2.studentFibonacci;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
 /**
- * Die Funktion "fibonacci" soll:
- *  + _iterativ_ programmiert sein, d.h. kein rekursiver Aufruf (MANUELL)
- *  + das Programm soll eine Eingabe erwarten (d.h. Abfrage stdin) (MANUELL)
- *  + für Eingabe n das n-te Fibonacci-Glied ausgeben (TEST)
- *  + beenden, wenn der Benutzer eine negative Zahl eingibt (TEST)
+ * Die Funktion prost soll:
+ *  + einen Parameter "n" vom Typ int übernehmen
+ *  + den Rückgabetyp int haben
+ *  + rekursiv programmiert sein (d.h. kein for oder while)
+ *  + die Anzahl Anstöße auf einer Party berechnen
+ *
+ *  Nicht explizit genannt:
+ *  + soll terminieren für alle n ∈ ℤ (also auch negative n), genauer:
+ *   + soll für n=0 genau 0 ausgeben (denn niemand kann mit niemandem anstoßen)
+ *   + soll für n=1 auch 0 ausgeben (denn eine Person kann mit einem Glas nicht
+ *         mit sich selbst anstoßen)
+ *   + soll für n<0 auch 0 ausgeben
  */
 public class TestProst3 {
 
-    @BeforeAll
-    static void init() {}
+    private int prostDiscreteFormula(int people) {
+        return Math.floorDiv(people * (people-1), 2);
+    }
 
-    /**
-     * Wenn der Benutzer eine negative Zahl eingibt,
-     * soll das Programm beendet werden.
-     *
-     * Dieser Test prüft, ob irgendeine Rückgabe kommt.
-     * Er schlägt fehl, wenn eine Endlosrekursion auftritt.
-     */
     @Test
-    void terminatesWithZeroOrInputForNegativeNumbers() {
+    void prostForOnePerson() {
+        assertEquals(0, prost(1));
+    }
+
+    @Test
+    void prostForZeroPerson() {
+        assertEquals(0, prost(0));
+    }
+
+    @Test
+    void prostForNegativePerson() {
+        assertEquals(0, prost(-1));
+    }
+
+    @Test
+    void prostWithSimpleNumbers() {
+        assertEquals(prostDiscreteFormula(2), prost(2));
+        assertEquals(prostDiscreteFormula(3), prost(3));
+        assertEquals(prostDiscreteFormula(5), prost(5));
+    }
+
+    @Test
+    void prostWithRandomizedNumbersChecksNegative() {
         Random random = new Random();
 
         int boundary = 1000;
 
-        int randomNegativeInteger = -1 * random.nextInt(boundary);
+        for (int i = 0; i < 10; i++) {
+            int people = random.nextInt(boundary);
+            int solution = Math.floorDiv(people * (people-1), 2);
+            int studentSolution = prost(people);
 
-        int input = -1;
-        int f = studentFibonacci(input);
-        /*
-         * Es ist akzeptabel 0 zurückzugeben
-         * oder auch die Eingabe selbst.
-         */
-        if (f == 0) {
-            return;
-        } else {
-            assertEquals(input, f);
-        }
+            assertEquals(
+                    solution,
+                    studentSolution
+            );
 
-        f = studentFibonacci(randomNegativeInteger);
-        if (f == 0) {
-            return;
-        } else {
-            assertEquals(randomNegativeInteger, f);
-        }
-    }
+            assertEquals(
+                    0,
+                    prost(people * -1)
+            );
 
-    /**
-     * Wenn der Benutzer eine negative Zahl eingibt,
-     * soll das Programm beendet werden.
-     * Dieser Test überprüft, ob System.exit aufgerufen wird.
-     */
-    @Test
-    void systemExitForNegativeNumbers() {
-        Random random = new Random();
-
-        int boundary = 1000;
-
-        int randomNegativeInteger = -1 * random.nextInt(boundary);
-
-        try {
-            catchSystemExit(() -> {
-                int r = studentFibonacci(-1);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-
-        try {
-            catchSystemExit(() -> {
-                int r = studentFibonacci(randomNegativeInteger);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-    }
-
-    /**
-     * Das erste Glied (Index 0) hat den Wert 0,
-     * das zweite (Index 1) hat den Wert 1.
-     *
-     * Alle weiteren Glieder stellen jeweils die Summe ihrer zwei
-     * Vorgänger dar.
-     */
-    @Test
-    void someNumbersIncludingZero() {
-        int[] fibonacciNumbers = {
-                0,
-                1,
-                1,
-                2,
-                3,
-                5,
-                8,
-                13,
-                21,
-                34,
-                55,
-                89,
-                144,
-                233,
-                377,
-                610,
-                987,
-                1597,
-                2584,
-                4181,
-                6765
-        };
-
-        for (int i = 0; i < fibonacciNumbers.length; i++) {
-            assertEquals(fibonacciNumbers[i], studentFibonacci(i));
+            System.out.println("Correct answer for: " + people + " which equates to " + solution + " and student got " + studentSolution);
         }
     }
 }
