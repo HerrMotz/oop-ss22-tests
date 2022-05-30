@@ -16,6 +16,16 @@ public class TestAirport2 {
     static boolean trueMeansDeparture = true;
     static Random random;
 
+    Flight randomFlight() {
+        return new Flight(
+                random.nextInt(100000),
+                "BER",
+                "Drölf",
+                "Zu spät",
+                true
+        );
+    }
+
     Flight exampleFlight1 = new Flight(
             654654,
             "DRS",
@@ -83,12 +93,12 @@ public class TestAirport2 {
 
     @Test
     void addMoreThanMaxFlights() {
-        int maxFlights = 1;
+        int maxFlights = random.nextInt(100);
         Airport airport = new Airport(maxFlights);
 
-        airport.addNewFlight(exampleFlight1);
-
-        airport.addNewFlight(exampleFlight2);
+        for (int i = 0; i < maxFlights + 1 + random.nextInt(100); i++) {
+            airport.addNewFlight(randomFlight());
+        }
 
         assertTrue(out.toString().contains("Fehler"));
     }
