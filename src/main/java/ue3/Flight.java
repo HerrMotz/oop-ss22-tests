@@ -15,4 +15,15 @@ public class Flight {
         this.time = time;
         this.inOut = inOut;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightNumber=" + flightNumber +
+                ", location='" + location + '\'' +
+                ", gate='" + gate + '\'' +
+                ", time='" + time + '\'' +
+                ", inOut=" + inOut +
+                '}';
+    }
 }
