@@ -100,19 +100,25 @@ public class TestAirport2 {
             airport.addNewFlight(randomFlight());
         }
 
-        assertTrue(out.toString().contains("Fehler"));
+        assertTrue(
+            out.toString().contains("Fehler") ||
+            out.toString().contains("Error")
+        );
     }
 
     @Test
     void addSameFlightTwice() {
-        int maxFlights = 1;
+        int maxFlights = 3;
         Airport airport = new Airport(maxFlights);
 
         airport.addNewFlight(exampleFlight1);
 
         airport.addNewFlight(exampleFlight1);
 
-        assertTrue(out.toString().contains("Fehler"));
+        assertTrue(
+            out.toString().contains("Fehler") ||
+            out.toString().contains("Error")
+        );
     }
 
     @Test
@@ -171,7 +177,10 @@ public class TestAirport2 {
         airport.addNewFlight(exampleFlight1);
         airport.addNewFlight(exampleFlight2);
 
+        System.out.println(Arrays.toString(airport.getFlights()));
+
         airport.removeFlight(exampleFlight1.flightNumber);
+
         assertFalse(
                 Arrays.stream(airport.getFlights()).toList().contains(exampleFlight1)
         );
