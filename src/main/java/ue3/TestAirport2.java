@@ -13,6 +13,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAirport2 {
+    static boolean trueMeansDeparture = true;
     static Random random;
 
     Flight exampleFlight1 = new Flight(
@@ -133,12 +134,22 @@ public class TestAirport2 {
 
         airport.listArrivalsOnScreen();
 
+        Flight flightToBeListed;
+        Flight flightNotToBeListed;
+        if (trueMeansDeparture) {
+            flightToBeListed = exampleFlight1;
+            flightNotToBeListed = exampleFlight2;
+        } else {
+            flightToBeListed = exampleFlight2;
+            flightNotToBeListed = exampleFlight1;
+        }
+
         assertFalse(out.toString().contains(
-                Integer.toString(exampleFlight1.flightNumber)
+                Integer.toString(flightToBeListed.flightNumber)
         ));
 
         assertTrue(out.toString().contains(
-                Integer.toString(exampleFlight2.flightNumber)
+                Integer.toString(flightNotToBeListed.flightNumber)
         ));
     }
 
