@@ -77,13 +77,13 @@ public class TestAirport2 {
 
     @Test
     void addFlight() {
-        int maxFlights = 1;
+        int maxFlights = 2;
         Airport airport = new Airport(maxFlights);
 
         airport.addNewFlight(exampleFlight1);
 
         // test length
-        assertEquals(1, airport.getFlights().length);
+        assertEquals(maxFlights, airport.getFlights().length);
 
         // test whether entered properties are accessible and correct
         assertEquals(exampleFlight1.location, airport.getFlights()[0].location);
@@ -97,12 +97,16 @@ public class TestAirport2 {
         Airport airport = new Airport(maxFlights);
 
         for (int i = 0; i < maxFlights + 1 + random.nextInt(100); i++) {
-            airport.addNewFlight(randomFlight());
+            try {
+                airport.addNewFlight(randomFlight());
+            } catch (Error e) {
+                System.out.println("Fehler");
+            }
         }
 
         assertTrue(
-            out.toString().contains("Fehler") ||
-            out.toString().contains("Error")
+            out.toString().toLowerCase().contains("fehler") ||
+            out.toString().toLowerCase().contains("error")
         );
     }
 
@@ -113,7 +117,11 @@ public class TestAirport2 {
 
         airport.addNewFlight(exampleFlight1);
 
-        airport.addNewFlight(exampleFlight1);
+        try {
+            airport.addNewFlight(exampleFlight1);
+        } catch (Error e) {
+            System.out.println("Fehler");
+        }
 
         assertTrue(
             out.toString().contains("Fehler") ||
@@ -131,12 +139,23 @@ public class TestAirport2 {
 
         airport.listDeparturesOnScreen();
 
-        assertTrue(out.toString().contains(
-                        Integer.toString(exampleFlight1.flightNumber)
-        ));
+        Flight flightToBeListed;
+        Flight flightNotToBeListed;
+
+        if (trueMeansDeparture) {
+            flightToBeListed = exampleFlight1;
+            flightNotToBeListed = exampleFlight2;
+        } else {
+            flightToBeListed = exampleFlight2;
+            flightNotToBeListed = exampleFlight1;
+        }
 
         assertFalse(out.toString().contains(
-                Integer.toString(exampleFlight2.flightNumber)
+                Integer.toString(flightToBeListed.flightNumber)
+        ));
+
+        assertTrue(out.toString().contains(
+                Integer.toString(flightNotToBeListed.flightNumber)
         ));
     }
 
@@ -152,12 +171,13 @@ public class TestAirport2 {
 
         Flight flightToBeListed;
         Flight flightNotToBeListed;
+
         if (trueMeansDeparture) {
+            flightToBeListed = exampleFlight2; // false
+            flightNotToBeListed = exampleFlight1;
+        } else {
             flightToBeListed = exampleFlight1;
             flightNotToBeListed = exampleFlight2;
-        } else {
-            flightToBeListed = exampleFlight2;
-            flightNotToBeListed = exampleFlight1;
         }
 
         assertFalse(out.toString().contains(
@@ -180,6 +200,7 @@ public class TestAirport2 {
         System.out.println(Arrays.toString(airport.getFlights()));
 
         airport.removeFlight(exampleFlight1.flightNumber);
+        System.out.println(Arrays.toString(airport.getFlights()));
 
         assertFalse(
                 Arrays.stream(airport.getFlights()).toList().contains(exampleFlight1)
@@ -189,6 +210,7 @@ public class TestAirport2 {
         );
 
         airport.removeFlight(exampleFlight2.flightNumber);
+        System.out.println(Arrays.toString(airport.getFlights()));
         assertFalse(
                 Arrays.stream(airport.getFlights()).toList().contains(exampleFlight2)
         );

@@ -1,4 +1,4 @@
-package ue4;
+package ue4.koenigreich;
 
 /**
  * In einem gesellschaftlich etwas unterentwickelten

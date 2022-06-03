@@ -1,4 +1,4 @@
-package ue4;
+package ue4.koenigreich;
 
 /**
  * Oberklasse für alle sozialen Schichten.
