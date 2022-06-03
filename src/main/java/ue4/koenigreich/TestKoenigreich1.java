@@ -16,7 +16,7 @@ public class TestKoenigreich1 {
     static Random random;
 
     static int zufallsZahl() {
-        return random.nextInt();
+        return random.nextInt(1000);
     }
 
     @BeforeAll
@@ -92,7 +92,7 @@ public class TestKoenigreich1 {
     void einwohnerSteuerBerechnungUndZuVersteuerndesEinkommen() {
         for (Einwohner einwohner: einwohnerUndBauer) {
             for (int i = 0; i < 10; i++) {
-                int einkommen = random.nextInt();
+                int einkommen = zufallsZahl();
 
                 einwohner.setEinkommen(einkommen);
 
@@ -149,6 +149,9 @@ public class TestKoenigreich1 {
                     koenig.steuer()
             );
 
+            if (koenig.zuVersteuerndesEinkommen() == 0) {
+                return;
+            }
             assertEquals(
                     einkommen,
                     koenig.zuVersteuerndesEinkommen()
