@@ -20,35 +20,43 @@ public class TestDIA {
         random = new Random();
     }
 
+    void testVonSchaefer(DynIntArray dynIntArray) {
+        dynIntArray.add(4);
+        dynIntArray.add(8);
+        dynIntArray.add(10);
+        dynIntArray.add(1);
+
+        System.out.println("\n\nErste Ausgabe:");
+
+        // erste Ausgabe
+        dynIntArray.print();
+        assertEquals(4, dynIntArray.getElementAt(0));
+        assertEquals(8, dynIntArray.getElementAt(1));
+        assertEquals(10, dynIntArray.getElementAt(2));
+        assertEquals(1, dynIntArray.getElementAt(3));
+
+        dynIntArray.setElementAt(0, 0);
+        dynIntArray.add(5);
+        dynIntArray.setElementAt(2, dynIntArray.getElementAt(2) + 10);
+
+        System.out.println("\n\nZweite Ausgabe:");
+
+        // zweite Ausgabe
+        dynIntArray.print();
+        assertEquals(0, dynIntArray.getElementAt(0));
+        assertEquals(8, dynIntArray.getElementAt(1));
+        assertEquals(20, dynIntArray.getElementAt(2));
+        assertEquals(1, dynIntArray.getElementAt(3));
+        assertEquals(5, dynIntArray.getElementAt(4));
+    }
+
     @Test
-    void testVonSchaefer() {
-        for (int i = 0; i < 2; i++) {
-            DynIntArray da = null;
-            if (i == 0) { da = new DIAarray(); }
-            else if (i == 1) { da = new DIAlist(); }
-            da.add(4);
-            da.add(8);
-            da.add(10);
-            da.add(1);
+    void testArray() {
+        testVonSchaefer(new DIAarray());
+    }
 
-            // erste Ausgabe
-            da.print();
-            assertEquals(4, da.getElementAt(0));
-            assertEquals(8, da.getElementAt(1));
-            assertEquals(10, da.getElementAt(2));
-            assertEquals(1, da.getElementAt(3));
-
-            da.setElementAt(0, 0);
-            da.add(5);
-            da.setElementAt(2, da.getElementAt(2) + 10);
-
-            // zweite Ausgabe
-            da.print();
-            assertEquals(0, da.getElementAt(0));
-            assertEquals(8, da.getElementAt(1));
-            assertEquals(20, da.getElementAt(2));
-            assertEquals(1, da.getElementAt(3));
-            assertEquals(5, da.getElementAt(4));
-        }
+    @Test
+    void testList() {
+        testVonSchaefer(new DIAlist());
     }
 }
