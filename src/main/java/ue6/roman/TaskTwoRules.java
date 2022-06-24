@@ -15,6 +15,12 @@ public class TaskTwoRules {
 
         roman = new Roman("X");
         assertEquals(10, roman.getInteger());
+
+        roman = new Roman("XXX");
+        assertEquals(30, roman.getInteger());
+
+        roman = new Roman("XXXIX");
+        assertEquals(39, roman.getInteger());
     }
 
     // Number range exceptions
@@ -49,6 +55,7 @@ public class TaskTwoRules {
     @Test
     void conversionIntToString() {
         Roman roman = new Roman(13);
+        System.out.println(roman);
         assertEquals("XIII", roman.toString());
     }
 
@@ -119,5 +126,12 @@ public class TaskTwoRules {
 
         roman2 = roman;
         assertEquals(roman, roman2);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Roman("MMMMCMXCIX").getInteger());
+        System.out.println(new Roman("").getInteger());
+        System.out.println(new Roman(-1).getInteger());
+        System.out.println(new Roman("X").subtract(new Roman("XI")));
     }
 }
