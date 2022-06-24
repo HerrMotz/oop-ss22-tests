@@ -13,6 +13,8 @@ public class TestPKW {
     static Random random;
     static int randomIterations = 1000;
 
+    static boolean antenneAusgefahren = true;
+
     static int zufallsZahl() {
         return random.nextInt();
     }
@@ -28,16 +30,20 @@ public class TestPKW {
 
     @Test
     void autoStandardKennzeichen() {
-        Auto auto = new Auto(false);
-
-        assertEquals(
-                5,
-                auto.getSitzplaetze()
-        );
+        Auto auto = new Auto();
 
         assertEquals(
                 "J-AA 01",
                 auto.getKennzeichen()
+        );
+    }
+
+    @Test
+    void autoStandardSitzplaetze() {
+        Auto auto = new Auto();
+        assertEquals(
+                5,
+                auto.getSitzplaetze()
         );
     }
 
@@ -116,9 +122,10 @@ public class TestPKW {
         int summeKilometer = 0;
 
         for (int i = 0; i < randomIterations; i++) {
-            int kilometer = zufallsZahl();
+            int kilometer = Math.abs(zufallsZahl());
             summeKilometer += kilometer;
             auto.fahre(kilometer);
+            System.out.println(kilometer);
             assertEquals(
                     summeKilometer,
                     auto.getKilometerstand()
@@ -133,7 +140,7 @@ public class TestPKW {
         int summeKilometer = 0;
 
         for (int i = 0; i < randomIterations; i++) {
-            int kilometer = zufallsZahl();
+            int kilometer = Math.abs(zufallsZahl());
             summeKilometer += kilometer;
             auto.fahre(kilometer);
             assertEquals(
@@ -141,6 +148,17 @@ public class TestPKW {
                     auto.getKilometerstand()
             );
         }
+    }
+
+    @Test
+    void pickUpNegativeKilometerFahren() {
+        System.out.println("HINWEIS: Hier muss eine Fehlermeldung auftauchen. Sonst Abzug.");
+        Auto auto = new PickUp(50);
+        auto.fahre(-1 * Math.abs(zufallsZahl()));
+        assertEquals(
+                0,
+                auto.getKilometerstand()
+        );
     }
 
     /**
@@ -165,7 +183,7 @@ public class TestPKW {
     }
 
     @Test
-    void autoZweiSitzPlaetzeBei() {
+    void autoZweiSitzPlaetze() {
         Auto auto = new Auto(true);
         assertEquals(
                 2,
@@ -182,19 +200,19 @@ public class TestPKW {
         System.out.println("HINWEIS: Hier müssen Ausgaben pro Ein- bzw. Ausfahren erscheinen. Sonst Abzug.");
         Auto auto = new PickUp(5);
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
 
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
 
         auto.fahreAntenneEin();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.fahreAntenneEin();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
     }
 
     @Test
@@ -202,19 +220,19 @@ public class TestPKW {
         System.out.println("HINWEIS: Hier müssen Ausgaben pro Ein- bzw. Ausfahren erscheinen. Sonst Abzug.");
         Auto auto = new Auto();
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
 
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
 
         auto.fahreAntenneEin();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.fahreAntenneEin();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.fahreAntenneAus();
-        assertTrue(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, auto.antenneAusgefahren);
     }
 
     /**
@@ -227,10 +245,10 @@ public class TestPKW {
         Auto auto = new Auto();
 
         auto.bereiteWaschenVor();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.bereiteWaschenVor();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
     }
 
     @Test
@@ -247,10 +265,10 @@ public class TestPKW {
         Auto auto = new PickUp(5);
 
         auto.bereiteWaschenVor();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
 
         auto.bereiteWaschenVor();
-        assertFalse(auto.antenneAusgefahren);
+        assertEquals(antenneAusgefahren, !auto.antenneAusgefahren);
     }
 
     @Test
@@ -298,6 +316,22 @@ public class TestPKW {
      */
 
     @Test
+    void pickUpAlsString() {
+        String kennzeichen = "R-NM 12";
+        Auto auto = new PickUp(kennzeichen, 5);
+
+        assertTrue(
+                auto.toString().contains(kennzeichen)
+        );
+
+        assertTrue(
+                auto.toString().contains("2") || auto.toString().toLowerCase().contains("zwei") // Sitzplatzanzahl
+        );
+
+        System.out.println(auto);
+    }
+
+    @Test
     void pickUpKannNichtUeberladenWerden() {
         for (int i = 0; i < randomIterations; i++) {
             int kapazitaet = Math.abs(zufallsZahl());
@@ -331,5 +365,14 @@ public class TestPKW {
         if (!rueckgabe) {
             assertEquals(0, pickUp.getLadung());
         }
+    }
+
+    @Test
+    void pickUpEntladen() {
+        PickUp pickUp = new PickUp(500);
+        boolean rueckgabe = pickUp.beladen(10);
+        assertEquals(10, pickUp.getLadung());
+        pickUp.entladen();
+        assertEquals(0, pickUp.getLadung());
     }
 }
