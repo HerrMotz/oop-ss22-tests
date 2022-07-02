@@ -1,4 +1,4 @@
-package ue8.submission;
+package ue8.graphobj;
 
 public class Rectangle implements ResizeableGO, MoveableGO {
     /*

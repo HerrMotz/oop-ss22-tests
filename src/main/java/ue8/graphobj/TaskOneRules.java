@@ -1,11 +1,7 @@
-package ue8;
+package ue8.graphobj;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import ue8.submission.MoveableGO;
-import ue8.submission.Rectangle;
-import ue8.submission.ResizeableGO;
 
 import java.util.*;
 
