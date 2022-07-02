@@ -1,9 +1,7 @@
 package ue7;
 
-import com.sun.source.doctree.SinceTree;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.Charset;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -133,6 +131,8 @@ public class Tests {
                 stringMenge.add(generatedString);
             }
         }
+
+        System.out.println(Arrays.toString(stringMenge.getElements()));
 
         assertEquals(sum, stringMenge.getCharCount());
     }
