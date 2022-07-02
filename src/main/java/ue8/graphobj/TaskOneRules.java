@@ -59,7 +59,7 @@ public class TaskOneRules {
     @Test
     void negativeHeight() {
         // it's forbidden to create rectangles with negative height or width
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(Exception.class, () ->
             new Rectangle(1, 4, 2, -1)
         );
     }
@@ -67,7 +67,7 @@ public class TaskOneRules {
     @Test
     void negativeWidth() {
         // it's forbidden to create rectangles with negative height or width
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(Exception.class, () ->
                 new Rectangle(1, 4, -2, 1)
         );
     }
