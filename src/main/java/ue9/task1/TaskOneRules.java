@@ -21,7 +21,25 @@ public class TaskOneRules {
     ListChecker listChecker = new ListChecker();
 
     @Test
-    void testZero() {
+    void testZeroNonInt() {
+        List list = new List();
+
+        list.traverseAndApply(containsZeroAction);
+        assertFalse(containsZeroAction.getContainsZero());
+
+        list.add(0f);
+
+        list.traverseAndApply(containsZeroAction);
+        assertFalse(containsZeroAction.getContainsZero());
+
+        list.add(1);
+
+        list.traverseAndApply(containsZeroAction);
+        assertTrue(containsZeroAction.getContainsZero());
+    }
+
+    @Test
+    void testZeroInt() {
         List list = new List();
 
         list.traverseAndApply(containsZeroAction);
@@ -30,7 +48,7 @@ public class TaskOneRules {
         list.add(0);
 
         list.traverseAndApply(containsZeroAction);
-        assertTrue(containsZeroAction.getContainsZero());
+        assertFalse(containsZeroAction.getContainsZero());
 
         list.add(1);
 
